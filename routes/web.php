@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\MenuController;
 use Illuminate\Support\Facades\Route;
@@ -11,10 +10,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\Seller\SellerMenuController;
 
-
-use App\Http\Controllers\AppController;
-use App\Models\Menu;
-use App\Models\Vendor;
 
 /*
 |--------------------------------------------------------------------------
@@ -94,9 +89,14 @@ Route::middleware(['auth'])->group(function(){
     
 
 
+    ////////// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ //////////
 
-
-       ////////// Seller Controller //////////
+    ////////// Seller Controller //////////
     Route::get('/seller', [SellerController::class, 'index'])->name('seller')->middleware('userAkses:seller');
     Route::get('/datamenuseller', [SellerMenuController::class, 'data_menu_seller'])->name('data_menu_seller')->middleware('userAkses:seller');
+    Route::get('/createmenuseller', [SellerMenuController::class, 'create_menu'])->name('createmenuseller')->middleware('userAkses:seller');
+    Route::post('/menusseller', [SellerMenuController::class, 'store_menu'])->name('menusseller')->middleware('userAkses:seller');
+    Route::get('datamenu/{id}/editmenuseller', [SellerMenuController::class, 'edit_menu'])->name('editmenuseller')->middleware('userAkses:seller');
+    Route::put('{id}/updatemenuseller', [SellerMenuController::class, 'menu_update'])->name('updatemenuseller')->middleware('userAkses:seller');
+    Route::get('datamenu/{id}/deletemenuseller', [SellerMenuController::class, 'menu_delete'])->name('deletemenuseller')->middleware('userAkses:seller');
 });

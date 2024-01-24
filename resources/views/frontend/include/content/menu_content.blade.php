@@ -21,7 +21,7 @@
         <div class="menu_card">
 
             <div class="menu_image">
-                <img src="{{ asset('storage/menu_images/' . $menu->menu_pic) }}">
+                <img src="{{ url('storage/menu_images/' . basename($menu->menu_pic)) }}">
             </div>
 
             <div class="small_card">

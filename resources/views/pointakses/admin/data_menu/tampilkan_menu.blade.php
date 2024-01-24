@@ -44,7 +44,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>M{{ $menu->id }}</td>
                                         <td class="text-center">
-                                            <img src="{{ url('storage/menu_images/' . basename($menu->menu_pic)) }}" class="rounded" style="width: 150px">
+                                        <img src="{{ url('storage/menu_images/' . basename($menu->menu_pic)) }}" class="rounded" style="width: 150px">
                                         </td>
                                         <td>{{ $menu->menu_name }}</td>
                                         <td>{{ $menu->menu_price }}</td>
@@ -56,8 +56,10 @@
                                             @endif
                                         </td>
                                         <td>
-
-                                        </td>
+                                
+                                                {{ $menu->users_id }}
+                                        
+                                        </>
                                         <td>
                                             <a href="{{ route('deletemenu', ['id' => $menu->id]) }}" class="btn btn-danger"
                                                 onclick="return confirmDelete('{{ $menu->id }}', '{{ $menu->menu_name }}');">

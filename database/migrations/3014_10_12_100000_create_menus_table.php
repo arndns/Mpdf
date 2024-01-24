@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +16,7 @@ return new class extends Migration
                 $table->id();
                 $table->string('menu_pic')->nullable();
                 $table->foreignId('category_id')->references('id')->on('table_category');
-                $table->foreignId('vendor_id')->references('id')->on('table_vendors');
+                $table->foreignId('users_id')->nullable(false)->references('id')->on('users'); // Tambahkan nullable(false)
                 $table->string('menu_name');
                 $table->integer('menu_price');
                 $table->string('menu_desc');
