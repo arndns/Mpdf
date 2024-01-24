@@ -36,10 +36,15 @@ class SellerMenuController extends Controller
         $menu->menu_price = $request->input('menu_price');
         $menu->category_id = $request->input('category');
         $menu->menu_desc = $request->input('menu_desc');
+<<<<<<< HEAD
         $menu->users_id = auth()->id();
         $menu->save();
 
 
+=======
+        $menu->save();
+
+>>>>>>> 6068a86ffb2c8eeb397413ad0bee59501a36c249
         // Ambil ID makanan yang baru saja disimpan
         $menuId = $menu->id;
 
@@ -73,7 +78,12 @@ class SellerMenuController extends Controller
         $menus->menu_name = $request->input('menu_name');
         $menus->save();
 
+<<<<<<< HEAD
         return redirect()->route('data_menu_seller')->with('Berhasil', 'Menu berhasil diupdate.');;
+=======
+        return redirect()->route('data_menu_seller')->with('Berhasil', 'Menu berhasil diupdate.');
+        ;
+>>>>>>> 6068a86ffb2c8eeb397413ad0bee59501a36c249
     }
     public function menu_delete($id)
     {
@@ -82,4 +92,8 @@ class SellerMenuController extends Controller
 
         return redirect()->back();
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 6068a86ffb2c8eeb397413ad0bee59501a36c249
