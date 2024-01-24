@@ -1,5 +1,4 @@
 @extends('pointakses.admin.layouts.dashboard')
-
 @section('content')
 
     <div class="content-wrapper iframe-mode" data-widget="iframe" data-loading-screen="750">
@@ -11,16 +10,19 @@
                         <h3 class="card-title">DATA MENU</h3>
 
                         <div class="card-tools">
-                            <div class="input-group input-group-sm" style="width: 150px;">
-                                <input type="text" name="table_search" class="form-control float-right"
-                                    placeholder="Search">
+                            <form action="{{route('datamenu')}}" method="GET">
+                                <div class="input-group input-group-sm" style="width: 150px;">
+                                    <input type="search" name="search" class="form-control float-right"
+                                        placeholder="Search">
 
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-default">
-                                        <i class="fas fa-search"></i>
-                                    </button>
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-default">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
+                            </form>
+
                         </div>
                     </div>
                     <!-- /.card-header -->

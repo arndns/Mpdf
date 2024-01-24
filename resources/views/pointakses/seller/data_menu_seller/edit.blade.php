@@ -32,7 +32,10 @@
                     <label for="category">Select Category</label>
                     <select class="form-control" id="category" name="category">
                         <option value="" selected>Select Category</option>
-
+                            @php
+                              $categories = \App\Models\Category::all();   
+                            @endphp
+                            
                         @if ($categories && count($categories) > 0)
                             @foreach ($categories as $category)
                                 <option value="{{ $category['id'] }}" {{ $category['id'] == $menus->category_id ? 'selected' : '' }}>

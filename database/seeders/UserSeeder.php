@@ -69,6 +69,18 @@ class UserSeeder extends Seeder
             'alamat' => 'Alamat User',
             'remember_token' => '',
         ]);
+        User::create([
+            'nama_lengkap' => 'User2',
+            'email' => 'user2@example.com',
+            'email_verified_at' => now(),
+            'password' => Hash::make('password'),
+            'role' => 'user',
+            'verify_key' => '',
+            'no_tlp' => '111222333',
+            'unit_kerja' => 'User Unit',
+            'alamat' => 'Alamat User',
+            'remember_token' => '',
+        ]);
 
         // Tambahkan lebih banyak pengguna sesuai kebutuhan Anda
     }
