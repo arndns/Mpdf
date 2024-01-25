@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use App\Models\Menu;
 use App\Models\Category;
+use App\Models\User;
 
 class MenuController extends Controller
 {
@@ -24,9 +25,11 @@ class MenuController extends Controller
     function create_menu()
     {
         $categories = Category::all();
+        $users = User::where('role', 'seller')->get();
 
-        return view('pointakses/admin/data_menu/create', compact('categories'));
+        return view('pointakses/admin/data_menu/create', compact('categories', 'users'));
     }
+
     function store_menu(Request $request): RedirectResponse
     {
         $this->validate($request, [
@@ -37,10 +40,10 @@ class MenuController extends Controller
         $menu->menu_name = $request->input('menu_name');
         $menu->menu_price = $request->input('menu_price');
         $menu->category_id = $request->input('category');
+        $menu->users_id = $request->input('vendor');
         $menu->menu_desc = $request->input('menu_desc');
 
-        // Set users_id berdasarkan pengguna yang membuat data menu
-        $menu->users_id = auth()->id();
+        // $menu->users_id = auth()->id();
 
         // Ambil ID makanan yang baru saja disimpan
         $menuId = $menu->id;
@@ -60,7 +63,7 @@ class MenuController extends Controller
 
         $menu->save();
 
-        return redirect()->route('data_menu_seller')->with(['success' => 'Data Berhasil Disimpan!']);
+        return redirect()->route('datamenu')->with(['success' => 'Data Berhasil Disimpan!']);
     }
 
     function edit_menu(string $id): View

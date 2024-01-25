@@ -1,5 +1,6 @@
 @extends('pointakses.admin.layouts.dashboard')
 @section('content')
+
     <div class="content-wrapper iframe-mode" data-widget="iframe" data-loading-screen="750">
         <a href="{{ route('createmenu') }}" class="btn btn-success">Tambah Menu</a>
         <div class="content">
@@ -9,7 +10,7 @@
                         <h3 class="card-title">DATA MENU</h3>
 
                         <div class="card-tools">
-                            <form action="{{ route('datamenu') }}" method="GET">
+                            <form action="{{route('datamenu')}}" method="GET">
                                 <div class="input-group input-group-sm" style="width: 150px;">
                                     <input type="search" name="search" class="form-control float-right"
                                         placeholder="Search">
@@ -45,8 +46,7 @@
                                         <td>{{ $loop->iteration }}</td>
                                         <td>M{{ $menu->id }}</td>
                                         <td class="text-center">
-                                            <img src="{{ url('storage/menu_images/' . basename($menu->menu_pic)) }}"
-                                                class="rounded" style="width: 150px">
+                                        <img src="{{ url('storage/menu_images/' . basename($menu->menu_pic)) }}" class="rounded" style="width: 150px">
                                         </td>
                                         <td>{{ $menu->menu_name }}</td>
                                         <td>{{ $menu->menu_price }}</td>
@@ -58,10 +58,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            {{ $menu->user->nama_lengkap }}
-                                        </td>
-                                        
-
+                                            {{ $menu->user->nama_lengkap}}
                                         <td>
                                             <a href="{{ route('deletemenu', ['id' => $menu->id]) }}" class="btn btn-danger"
                                                 onclick="return confirmDelete('{{ $menu->id }}', '{{ $menu->menu_name }}');">

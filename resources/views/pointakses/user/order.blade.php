@@ -70,10 +70,6 @@
         </tr>
     </tfoot>
 </table>
-@endsection
-  
-
-@section('scripts')
 <script type="text/javascript">
   
     $(".edit-cart-info").change(function (e) {

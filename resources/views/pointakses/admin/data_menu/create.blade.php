@@ -37,6 +37,19 @@
                         </select>
                     </div>
 
+                    <div class="form-group">
+                        <label for="vendor">Select Vendor</label>
+                        <select class="form-control" id="vendor" name="vendor">
+                            <option value="" selected>Select Vendor</option>
+
+                            @if ($users && count($users) > 0)
+                                @foreach ($users as $user)
+                                    <option value="{{ $user['id'] }}">{{ $user->nama_lengkap }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                    </div>
+
 
                     <div class="col-sm-6">
                         <!-- textarea -->
