@@ -40,8 +40,8 @@
 
         </div>
         @endforeach
-    </div>
-    <script>
+
+        <script>
         $(document).ready(function(){
             $("#category").on('change', function(){
                 var category = $(this).val();
@@ -72,5 +72,6 @@
             })
         })
     </script>
+    </div>
 
 </div>

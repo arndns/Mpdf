@@ -16,13 +16,13 @@ class Menu extends Model
      */
 
     protected $table = 'table_menu';
-    protected $guarded = ['id'];
-
     protected $fillable = [
+        'menu_id',
         'menu_pic',
         'menu_name',
         'menu_price',
-        'menu_desc'
+        'menu_desc',
+        'users_id'
     ];
 
     public function category()
@@ -37,6 +37,6 @@ class Menu extends Model
 
     public function order()
     {
-        return $this -> belongsTo(Order::class);
+        return $this -> belongsTo(Order::class, 'menu_id');
     }
 }

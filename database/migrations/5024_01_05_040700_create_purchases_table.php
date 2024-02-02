@@ -14,8 +14,8 @@ return new class extends Migration
         if (!Schema::hasTable('table_purchase')) {
             Schema::create('table_purchase', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('customer_id')->references('id')->on('table_order');
-                $table->foreignId('order_id')->references('id')->on('table_order');
+                $table->foreignId('users_id')->references('id')->on('orders');
+                $table->foreignId('orders_id')->references('id')->on('orders');
                 $table->integer('total');
                 $table->timestamps();
             });

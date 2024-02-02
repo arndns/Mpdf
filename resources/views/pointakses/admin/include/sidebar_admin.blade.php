@@ -150,14 +150,13 @@
                    </li>
                    <li class="nav-item">
                     <span>
-                        <a href="{{route('datamenu')}}" class="nav-link">
+                        <a href="{{route('admin.orders')}}" class="nav-link">
                            <i class="nav-icon fas fa-table"></i>
                            <p>
                                Tabel Order
                            </p>
                        </a>
                     </span>
-                   </li>
 
                    <!-- Control Sidebar -->
                    <aside class="control-sidebar control-sidebar-dark">

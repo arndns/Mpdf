@@ -8,6 +8,8 @@ use App\Models\Menu;
 
 use App\Models\Category;
 
+use Illuminate\Support\Facades\Session;
+
 class UserController extends Controller
 {
     public function index() {
@@ -55,34 +57,52 @@ class UserController extends Controller
 
     public function addMenutoOrder($id)
     {
+        // Ensure the user is authenticated
+        $this->middleware('auth');
+
         $menu = Menu::findOrFail($id);
-        $order = session()->get('order', []);
+        $userId = auth()->id();
+
+        // Get the user's cart from the session
+        $order = session()->get("order_$userId", []);
+
         if(isset($order[$id])) {
             $order[$id]['quantity']++;
             $order[$id]['subtotal'] = $order[$id]['quantity'] * $order[$id]['menu_price'];
         } else {
             $order[$id] = [
+                "menu_id" => $menu->id,
                 "menu_name" => $menu->menu_name,
+                "menu_pic" => $menu->menu_pic,
                 "quantity" => 1,
                 "menu_price" => $menu->menu_price,
                 "menu_desc" => $menu->menu_desc,
                 "subtotal" =>$menu->menu_price
             ];
         }
-        session()->put('order', $order);
-        return redirect()->back()->with('success', 'Menu has been added to order!');
+
+        // Store the updated cart in the user's session
+        session()->put("order_$userId", $order);
+
+        return redirect()->back()->with('success', 'Menu berhasil ditambahkan.');
     }
     
     public function updateorder(Request $request)
     {
+        $this->middleware('auth');
+
+        $userId = auth()->id();
+
         if ($request->id && $request->quantity) {
-            $order = session()->get('order');
-    
+            // Get the user's cart from the session
+            $order = session()->get("order_$userId");
+
             if (isset($order[$request->id])) {
                 $order[$request->id]["quantity"] = $request->quantity;
                 // Recalculate subtotal when updating quantity
                 $order[$request->id]["subtotal"] = $request->quantity * $order[$request->id]["menu_price"];
-                session()->put('order', $order);
+                // Store the updated cart in the user's session
+                session()->put("order_$userId", $order);
                 session()->flash('success', 'Product quantity updated.');
             }
         }
@@ -90,13 +110,40 @@ class UserController extends Controller
   
     public function deleteMenu(Request $request)
     {
+        $this->middleware('auth');
+
+        $userId = auth()->id();
+
         if($request->id) {
-            $order = session()->get('order');
+            // Get the user's cart from the session
+            $order = session()->get("order_$userId");
+
             if(isset($order[$request->id])) {
                 unset($order[$request->id]);
-                session()->put('order', $order);
+                // Store the updated cart in the user's session
+                session()->put("order_$userId", $order);
             }
+
             session()->flash('success', 'Menu successfully deleted.');
         }
+    }
+
+    public function checkout()
+    {
+        $order = Session::get("order_" . auth()->id(), []);
+        $total = $this->calculateTotal($order);
+
+        return view('pointakses/user/checkout', compact('order', 'total'));
+    }
+
+    private function calculateTotal($order)
+    {
+        $total = 0;
+
+        foreach ($order as $id => $order_detail) {
+            $total += $order_detail['subtotal'];
+        }
+
+        return $total;
     }
 }

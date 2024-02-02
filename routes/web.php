@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\MenuController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
@@ -56,6 +57,11 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/menu/{id}', [UserController::class, 'addMenutoOrder'])->name('addMenu.to.order')->middleware('userAkses:user');
     Route::patch('/update-shopping-cart', [UserController::class, 'updateOrder'])->name('update.sopping.order')->middleware('userAkses:user');
     Route::delete('/delete-cart-menu', [UserController::class, 'deleteMenu'])->name('delete.cart.menu')->middleware('userAkses:user');
+
+
+    ////////// User Order Controller //////////
+    Route::get('/checkout', [UserController::class, 'checkout'])->name('checkout')->middleware('userAkses:user');
+    Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('place.order')->middleware('userAkses:user');
     
 
     ////////// User Order & Logout Controller //////////
@@ -69,6 +75,7 @@ Route::middleware(['auth'])->group(function(){
     ////////// Admin Controller //////////
     Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('userAkses:admin');
 
+    Route::get('/admin/orders', [AdminController::class, 'showOrders'])->name('admin.orders')->middleware('userAkses:admin');
 
     ////////// Admin Kategori Controller //////////
     Route::get('/datakategori', [CategoryController::class, 'data_kategori'])->name('datakategori')->middleware('userAkses:admin');

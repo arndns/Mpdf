@@ -19,6 +19,7 @@
     <thead>
         <tr>
             <th>Menu</th>
+            <th></th>
             <th>Price</th>
             <th>Quantity</th>
             <th>Subtotal</th>
@@ -28,9 +29,8 @@
 
     <tbody>
         @php $total = 0 @endphp
-        @if(session('order'))
-            @foreach(session('order') as $id => $order_detail)
-                
+        @if(session("order_" . auth()->id()))
+            @foreach(session("order_" . auth()->id()) as $id => $order_detail)
                 <tr rowId="{{ $id }}">
                     <td data-th="Menu">
                         <div class="row">
@@ -38,6 +38,9 @@
                                 <h4 class="nomargin">{{ $order_detail['menu_name'] }}</h4>
                             </div>
                         </div>
+                    </td>
+                    <td class="text-center">
+                        <img src="{{ url('storage/menu_images/' . basename($order_detail['menu_pic'])) }}" class="rounded" style="width: 150px">
                     </td>
                     <td data-th="Price">Rp. {{ $order_detail['menu_price'] }}</td>
                     <td data-th="Quantity">
@@ -65,7 +68,7 @@
         <tr>
             <td colspan="5" class="text-right">
                 <a href="{{ url('/menu') }}" class="btn btn-primary"><i class="fa fa-angle-left"></i> Continue Shopping</a>
-                <button class="btn btn-danger">Checkout</button>
+                <a href="{{ url('/checkout') }}" class="btn btn-danger">Checkout</a>
             </td>
         </tr>
     </tfoot>

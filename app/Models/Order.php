@@ -13,8 +13,15 @@ class Order extends Model
      *
      * @var array
      */
+    protected $table = 'orders';
+
     protected $fillable = [
-        'quantity'
+        'users_id',
+        'menu_id',
+        'menu_price',
+        'quantity',
+        'subtotal',
+        'total'
     ];
 
     public function user()
@@ -22,13 +29,13 @@ class Order extends Model
         return $this -> belongsTo(User::class);
     }
 
+    public function menus()
+    {
+        return $this -> hasMany(Menu::class, 'menu_id');
+    }
+
     public function purchase()
     {
         return $this -> belongsTo(Purchase::class);
-    }
-
-    public function menu()
-    {
-        return $this -> hasMany(Order::class);
     }
 }

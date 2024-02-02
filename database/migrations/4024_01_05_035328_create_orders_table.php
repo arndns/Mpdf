@@ -11,12 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasTable('table_order')) {
-            Schema::create('table_order', function (Blueprint $table) {
+        if (!Schema::hasTable('orders')) {
+            Schema::create('orders', function (Blueprint $table) {
                 $table->id();
-                $table->foreignId('menu_id')->references('id')->on('table_menu');
+                $table->foreignId('users_id')->references('id')->on('users');
+                $table->foreignId('menu_id')->nullable(false)->references('id')->on('table_menu');
                 $table->integer('quantity');
                 $table->integer('menu_price')->references('menu_price')->on('table_menu');
+                $table->integer('subtotal');
+                $table->integer('total');
                 $table->timestamps();
             });
         }
@@ -27,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_order');
+        Schema::dropIfExists('orders');
     }
 };
