@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\AdminOrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\OrderController;
@@ -75,7 +76,7 @@ Route::middleware(['auth'])->group(function(){
     ////////// Admin Controller //////////
     Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('userAkses:admin');
 
-    Route::get('/admin/orders', [AdminController::class, 'showOrders'])->name('admin.orders')->middleware('userAkses:admin');
+    Route::get('/admin/orders', [AdminOrderController::class, 'groupDataByCreatedAt'])->name('admin.orders')->middleware('userAkses:admin');
 
     ////////// Admin Kategori Controller //////////
     Route::get('/datakategori', [CategoryController::class, 'data_kategori'])->name('datakategori')->middleware('userAkses:admin');

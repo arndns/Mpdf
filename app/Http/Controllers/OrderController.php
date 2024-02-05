@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
-use Illuminate\Support\Facades\DB;
-
 use Illuminate\Http\RedirectResponse;
 
 use Illuminate\Http\Request;
@@ -34,7 +32,7 @@ class OrderController extends Controller
                 'menu_price' => $orderDetail['menu_price'],
                 'quantity' => $orderDetail['quantity'],
                 'subtotal' => $orderDetail['subtotal'],
-                'total' => 0, // Default, akan diupdate setelah semua item order ditambahkan
+                'total' => $this->calculateTotal($orderData),
                 'id_pesanan' => $orderId, // Menggunakan id_pesanan yang sama untuk semua menu dalam satu pesanan
             ]);
     

@@ -61,5 +61,5 @@
             </div>
         </div>
     </div>
-    @include('pointakses.admin.include.sidebar_admin')>
+    @include('pointakses.admin.include.sidebar_admin')
 @endsection
