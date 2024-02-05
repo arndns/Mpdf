@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (!Schema::hasTable('table_purchase')) {
-            Schema::create('table_purchase', function (Blueprint $table) {
+        if (!Schema::hasTable('table_detail_order')) {
+            Schema::create('table_detail_order', function (Blueprint $table) {
                 $table->id();
                 $table->foreignId('users_id')->references('id')->on('orders');
-                $table->foreignId('orders_id')->references('id')->on('orders');
                 $table->integer('total');
                 $table->timestamps();
             });
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('table_purchase');
+        Schema::dropIfExists('table_detail_order');
     }
 };

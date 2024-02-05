@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\RedirectResponse;
 
 use Illuminate\Http\Request;
@@ -16,10 +18,14 @@ class OrderController extends Controller
 {
     public function placeOrder(Request $request): RedirectResponse
     {
-
         $orderData = Session::get("order_" . auth()->id());
-
+    
+        // Mendapatkan id_pesanan yang sama untuk semua menu dalam satu pesanan
+        $orderId = Order::max('id_pesanan') + 1;
+    
         foreach ($orderData as $orderDetail) {
+            $orderDetail['id_pesanan'] = $orderId; // Tetapkan id_pesanan ke setiap detail order
+    
             $order = new Order([
                 'users_id' => auth()->id(),
                 'menu_id' => $orderDetail['menu_id'],
@@ -27,22 +33,23 @@ class OrderController extends Controller
                 'menu_pic' => $orderDetail['menu_pic'],
                 'menu_price' => $orderDetail['menu_price'],
                 'quantity' => $orderDetail['quantity'],
-                'subtotal' => $this->calculateSubtotal($orderData),
-                'total' => $this->calculateTotal($orderData)
+                'subtotal' => $orderDetail['subtotal'],
+                'total' => 0, // Default, akan diupdate setelah semua item order ditambahkan
+                'id_pesanan' => $orderId, // Menggunakan id_pesanan yang sama untuk semua menu dalam satu pesanan
             ]);
+    
             $order->save();
-
-            $orderId = $order->id;
-
-            $orderDetail['order_id'] = $orderId;
         }
-
+    
+        // Update nilai 'total' setelah semua item order ditambahkan
+        $this->updateOrderTotal($orderId);
+    
         Session::forget("order_" . auth()->id());
-
+    
         // Redirect ke halaman terima kasih atau halaman lainnya
         return redirect()->route('menu_user')->with('Berhasil', 'Transaksi berhasil.');
     }
-
+    
     private function calculateTotal($orderData)
     {
         $total = 0;
@@ -75,4 +82,16 @@ class OrderController extends Controller
 
         return $subtotal;
     }
+    private function updateOrderTotal($orderId)
+    {
+        $orderItems = Order::where('id', $orderId)->get();
+    
+        $totalOrder = $orderItems->sum('subtotal');
+    
+        foreach ($orderItems as $orderItem) {
+            $orderItem->total = $totalOrder;
+            $orderItem->save();
+        }
+    }
+    
 }

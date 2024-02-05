@@ -8,34 +8,33 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
-    /**
-     * fillable
-     *
-     * @var array
-     */
+
     protected $table = 'orders';
 
     protected $fillable = [
         'users_id',
         'menu_id',
+        'menu_name',
+        'menu_pic',
         'menu_price',
         'quantity',
         'subtotal',
-        'total'
+        'total',
+        'id_pesanan', // Tambahkan kolom id_pesanan
     ];
 
     public function user()
     {
-        return $this -> belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
-    public function menus()
+    public function menu()
     {
-        return $this -> hasMany(Menu::class, 'menu_id');
+        return $this->belongsTo(Menu::class, 'menu_id');
     }
 
     public function purchase()
     {
-        return $this -> belongsTo(Purchase::class);
+        return $this->belongsTo(Purchase::class);
     }
 }
