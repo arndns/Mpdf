@@ -51,7 +51,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/tentangkami_user',[UserController::class, 'about_user'])->name('about_user')->middleware('userAkses:user');
     Route::get('/kontak_user',[UserController::class, 'contact_user'])->name('contact_user')->middleware('userAkses:user');
     Route::get('/menu_user',[UserController::class, 'filterMenu_user'])->name('menu_user')->middleware('userAkses:user');
-    
+    Route::get('/history_order',[UserController::class, 'history_order'])->name('history_order')->middleware('userAkses:user');
 
     ////////// User Cart Controller //////////
     Route::get('/shopping-cart', [UserController::class, 'menuOrder'])->name('shopping.order')->middleware('userAkses:user');

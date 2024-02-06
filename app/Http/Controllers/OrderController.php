@@ -34,6 +34,11 @@ class OrderController extends Controller
                 'subtotal' => $orderDetail['subtotal'],
                 'total' => $this->calculateTotal($orderData),
                 'id_pesanan' => $orderId, // Menggunakan id_pesanan yang sama untuk semua menu dalam satu pesanan
+                'nama_penerima' => $request->input('nama_penerima'), // Tambahkan data manual
+                'alamat_pengiriman' => $request->input('alamat_pengiriman'), // Tambahkan data manual
+                'fakultas' => $request->input('fakultas'), // Tambahkan data manual
+                'tanggal' => $request->input('tanggal'), // Tambahkan data manual
+                'jam' => $request->input('jam'), // Tambahkan data manual
             ]);
     
             $order->save();

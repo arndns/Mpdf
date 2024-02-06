@@ -16,25 +16,25 @@ class Order extends Model
         'menu_id',
         'menu_name',
         'menu_pic',
-        'menu_price',
         'quantity',
+        'menu_price',
         'subtotal',
         'total',
         'id_pesanan', // Tambahkan kolom id_pesanan
+        'nama_penerima', // Tambahkan kolom nama_penerima
+        'alamat_pengiriman', // Tambahkan kolom alamat_pengiriman
+        'fakultas', // Tambahkan kolom fakultas
+        'tanggal', // Tambahkan kolom tanggal
+        'jam', // Tambahkan kolom jam
     ];
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'users_id');
     }
 
     public function menu()
     {
         return $this->belongsTo(Menu::class, 'menu_id');
-    }
-
-    public function purchase()
-    {
-        return $this->belongsTo(Purchase::class);
     }
 }

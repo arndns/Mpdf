@@ -43,6 +43,7 @@
                                             @csrf
                                         </form>
                                 </li>
+                                <li><a href="{{ route('history_order') }}">History</a></li>
                                 <li><a href="#" class="no-hover">Halo {{ Auth::user()->nama_lengkap }}</a></li>
                                 @endauth
 

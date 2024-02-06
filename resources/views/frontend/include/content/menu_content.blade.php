@@ -35,7 +35,12 @@
                 <div class="menu_icon">
                     <i class="icon-basket2"></i>
                 </div>
-                <a href="{{ route('addMenu.to.order', $menu->id) }}" class="menu_btn">Order Now</a>
+               @auth
+               <a href="{{ route('addMenu.to.order', $menu->id) }}" class="menu_btn">Order Now</a>   
+               @endauth
+               @guest
+               <a href="{{ route('auth') }}" class="menu_btn">Order Now</a> 
+               @endguest
             </div>
 
         </div>
