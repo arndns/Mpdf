@@ -1,4 +1,4 @@
-@extends('pointakses.admin.layouts.dashboard')'
+@extends('pointakses.admin.layouts.dashboard')
 
 @section('content')
 
@@ -36,6 +36,10 @@
                                         <td><strong>ID Pesanan:  {{ $groupedOrder->id_pesanan }} </strong> 
                                             <br>Menu:  {{ $groupedOrder->menu_names }}
                                             <br>Total:  {{ $groupedOrder->total }}
+                                            <br>Nama Penerima: {{ $groupedOrder->nama_penerima }}
+                                            <br>Alamat Pengiriman: {{ $groupedOrder->alamat_pengiriman }}
+                                            <br>fakultas: {{ $groupedOrder->fakultas }}
+                                            <br>Tanggal & Jam: {{ $groupedOrder->tanggal }}, {{$groupedOrder->jam}}
                                         </td>
                                         <td><a href="#"
                                                 class="btn btn-info">Download</a>

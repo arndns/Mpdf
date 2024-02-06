@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Menu;
+
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Category;
@@ -151,12 +154,12 @@ class UserController extends Controller
     }
     public function history_order()
     {
-        $userId = Auth::id(); // Mendapatkan ID pengguna yang saat ini masuk
+        $userId = Auth::id();
     
         $groupedOrders = DB::table('orders')
-            ->select('id_pesanan', 'total', DB::raw('GROUP_CONCAT(menu_name SEPARATOR ", ") as menu_names'))
-            ->where('users_id', $userId) // Menambahkan kondisi untuk hanya mengambil pesanan oleh pengguna yang saat ini masuk
-            ->groupBy('id_pesanan', 'total')
+            ->select('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman', 'fakultas', 'tanggal', 'jam', DB::raw('GROUP_CONCAT(menu_name SEPARATOR ", ") as menu_names'))
+            ->where('users_id', $userId)
+            ->groupBy('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman', 'fakultas', 'tanggal', 'jam')
             ->get();
     
         return view('pointakses/user/history_order', ['groupedOrders' => $groupedOrders]);

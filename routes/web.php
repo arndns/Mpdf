@@ -75,7 +75,6 @@ Route::middleware(['auth'])->group(function(){
 
     ////////// Admin Controller //////////
     Route::get('/admin', [AdminController::class, 'index'])->name('admin')->middleware('userAkses:admin');
-
     Route::get('/admin/orders', [AdminOrderController::class, 'groupDataByCreatedAt'])->name('admin.orders')->middleware('userAkses:admin');
 
     ////////// Admin Kategori Controller //////////
