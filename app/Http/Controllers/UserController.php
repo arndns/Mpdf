@@ -173,4 +173,27 @@ class UserController extends Controller
 
         return view('pointakses/user/invoice', compact('orders'));
     }
+
+    public function editprofile()
+    {
+        return view('pointakses/user/editprofile');
+
+    }
+
+    public function updateprofile(Request $request)
+    {
+        $users = auth()->user();
+        $users->nama_lengkap = $request->input('nama_lengkap');
+        $users->email = $request->input('email');
+        $users->no_tlp = $request->input('no_tlp');
+        $users->alamat = $request->input('alamat');
+        $users->unit_kerja = $request->input('unit_kerja');
+        $users->save();
+
+        return back()->with('message','Update Profile Berhasil');
+    }
+
+    public function editpassword(){
+        return view('pointakses/user/changepassword');
+    }
 }
