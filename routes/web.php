@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/kontak_user',[UserController::class, 'contact_user'])->name('contact_user')->middleware('userAkses:user');
     Route::get('/menu_user',[UserController::class, 'filterMenu_user'])->name('menu_user')->middleware('userAkses:user');
     Route::get('/history_order',[UserController::class, 'history_order'])->name('history_order')->middleware('userAkses:user');
+    Route::get('/userinvoice',[UserController::class, 'invoice'])->name('user.invoice')->middleware('userAkses:user');
 
     ////////// User Cart Controller //////////
     Route::get('/shopping-cart', [UserController::class, 'menuOrder'])->name('shopping.order')->middleware('userAkses:user');
@@ -106,4 +107,6 @@ Route::middleware(['auth'])->group(function(){
     Route::get('datamenu/{id}/editmenuseller', [SellerMenuController::class, 'edit_menu'])->name('editmenuseller')->middleware('userAkses:seller');
     Route::put('{id}/updatemenuseller', [SellerMenuController::class, 'menu_update'])->name('updatemenuseller')->middleware('userAkses:seller');
     Route::get('datamenu/{id}/deletemenuseller', [SellerMenuController::class, 'menu_delete'])->name('deletemenuseller')->middleware('userAkses:seller');
+
+    Route::get('seller/orders', [SellerController::class, 'seller_order'])->name('seller.orders')->middleware('userAkses:seller');
 });

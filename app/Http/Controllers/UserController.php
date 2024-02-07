@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 
 use App\Models\Menu;
 
+use App\Models\Order;
+
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\Category;
@@ -163,5 +165,12 @@ class UserController extends Controller
             ->get();
     
         return view('pointakses/user/history_order', ['groupedOrders' => $groupedOrders]);
+    }
+
+    public function invoice(int $id)
+    {
+        $orders = Order::findOrFail($id);
+
+        return view('pointakses/user/invoice', compact('orders'));
     }
 }

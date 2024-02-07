@@ -33,8 +33,8 @@
                             <br>fakultas: {{ $groupedOrder->fakultas }}
                             <br>Tanggal & Jam: {{ $groupedOrder->tanggal }}, {{$groupedOrder->jam}}
                         </td>
-                        <td><a href="#" class="btn btn-info">Download</a>
-                        </td>
+                        <td><a href="{{ route('user.invoice') }}" class="btn btn-info">Lihat Invoice</a></td>
+                        <td><a href="{{ route('user.invoice') }}" class="btn btn-success">Unduh Invoice</a></td>
                     </tr>
                 @endforeach
             </tbody>

@@ -1,6 +1,6 @@
-@extends('pointakses.admin.layouts.dashboard')
+@extends('pointakses.seller.layouts.dashboard')
 
-@section('content')
+@section('content_seller')
 
 <div class="content-wrapper iframe-mode" data-widget="iframe" data-loading-screen="750">
     <div class="content">
@@ -54,5 +54,5 @@
         </div>
     </div>
 </div>
-@include('pointakses.admin.include.sidebar_admin')
+@include('pointakses.seller.include.sidebar_seller')
 @endsection
