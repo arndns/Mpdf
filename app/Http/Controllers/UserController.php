@@ -167,13 +167,25 @@ class UserController extends Controller
         return view('pointakses/user/history_order', ['groupedOrders' => $groupedOrders]);
     }
 
-    public function invoice(int $id)
+    public function invoice($id_pesanan)
     {
-        $orders = Order::findOrFail($id);
-
-        return view('pointakses/user/invoice', compact('orders'));
+        $userId = Auth::id();
+        
+        // Retrieve the grouped orders
+        $groupedOrders = DB::table('orders')
+            ->select('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman','quantity', 'fakultas', 'tanggal', 'jam', DB::raw('GROUP_CONCAT(menu_name SEPARATOR ", ") as menu_names'))
+            ->where('users_id', $userId)
+            ->where('id_pesanan', $id_pesanan) // Filter berdasarkan ID pesanan yang diberikan
+            ->groupBy('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman','quantity', 'fakultas', 'tanggal', 'jam')
+            ->get();
+        
+        // Return the view with the data
+        return view('pointakses.user.invoice', compact('groupedOrders'));
     }
-
+    
+    
+    
+    
     public function editprofile()
     {
         return view('pointakses/user/editprofile');

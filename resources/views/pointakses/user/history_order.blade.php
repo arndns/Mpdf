@@ -24,19 +24,28 @@
             </thead>
             <tbody>
                 @foreach ($groupedOrders as $groupedOrder)
-                    <tr>
-                        <td><strong>ID Pesanan: {{ $groupedOrder->id_pesanan }} </strong>
-                            <br>Menu: {{ $groupedOrder->menu_names }}
-                            <br>Total: {{ $groupedOrder->total }}
-                            <br>Nama Penerima: {{ $groupedOrder->nama_penerima }}
-                            <br>Alamat Pengiriman: {{ $groupedOrder->alamat_pengiriman }}
-                            <br>fakultas: {{ $groupedOrder->fakultas }}
-                            <br>Tanggal & Jam: {{ $groupedOrder->tanggal }}, {{$groupedOrder->jam}}
-                        </td>
-                        <td><a href="{{ route('user.invoice') }}" class="btn btn-info">Lihat Invoice</a></td>
-                        <td><a href="{{ route('user.invoice') }}" class="btn btn-success">Unduh Invoice</a></td>
-                    </tr>
-                @endforeach
+                <tr>
+                    <td>
+                        @isset($groupedOrder->id_pesanan)
+                            <strong>ID Pesanan: {{ $groupedOrder->id_pesanan }}</strong>
+                        @endisset
+                        <br>Menu: {{ $groupedOrder->menu_names }}
+                        <br>Total: {{ $groupedOrder->total }}
+                        <br>Nama Penerima: {{ $groupedOrder->nama_penerima }}
+                        <br>Alamat Pengiriman: {{ $groupedOrder->alamat_pengiriman }}
+                        <br>Fakultas: {{ $groupedOrder->fakultas }}
+                        <br>Tanggal & Jam: {{ $groupedOrder->tanggal }}, {{ $groupedOrder->jam }}
+                    </td>
+                    <td>
+                        @isset($groupedOrder->id_pesanan)
+                        <a href="{{ route('user_invoice', ['id_pesanan' => $groupedOrder->id_pesanan]) }}" class="btn btn-info">Lihat Invoice</a>
+                        <a href="{{ route('user_invoice', ['id_pesanan' => $groupedOrder->id_pesanan]) }}" class="btn btn-success">Unduh Invoice</a>                        
+                        @endisset
+                    </td>
+                </tr>
+            @endforeach
+            
+            
             </tbody>
         </table>
     </div>
