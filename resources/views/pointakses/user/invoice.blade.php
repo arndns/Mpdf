@@ -106,7 +106,7 @@
             <tr class="top">
                 <td colspan="2">
                     <table>
-                        @if ($groupedOrders && $groupedOrders->count() > 0)
+                        @if ($groupedOrders && $groupedOrders)
                             @foreach ($groupedOrders as $groupedOrder)
                                 <tr class="top">
                                     <td colspan="2">
@@ -118,24 +118,26 @@
                                                 </td>
                                                 <td>
                                                     <strong>ID Pesanan: {{ $groupedOrder->id_pesanan }}</strong>
-                                                    <br>Menu: {{ $groupedOrder->menu_names }}
+                                                    <br><strong>Pemesan: {{ $groupedOrder->nama_lengkap }}</strong>
+                                                    <br>Menu: {{ $groupedOrder->menu_with_quantity }}
                                                 </td>
                                             </tr>
                                         </table>
                                     </td>
                                 </tr>
+                            @endforeach
+                        @endif
                     </table>
                 </td>
             </tr>
-
             <tr class="information">
                 <td colspan="2">
                     <table>
                         <tr>
                             <td>
-                                PUSBIS<br />
+                                PUSBIS<br>
                                 (Pusat Bisnis UIN Sunan Ampel Surabaya)
-                                <br />
+                                <br>
                                 Kantin Maqha lt 2 UIN Sunan Ampel Surabaya, Jl. Ahmad Yani No.117, Jemur Wonosari,
                                 Wonocolo, Surabaya
                             </td>
@@ -150,23 +152,27 @@
                 </td>
             </tr>
             <tr class="heading">
-                <td>Item</td>
-                <td>Quantity</td>
-                <td>Price</td>
+                <td>Menu (Jumlah)</td>
+                <td>Vendor</td>
+                <td>Harga</td>
+                <td>Jumlah</td>
+                <td>Subtotal</td>
             </tr>
 
             <tr class="item">
-                <td>{{ $groupedOrder->menu_names }}</td>
-                <td>{{ $groupedOrder->quantity }}</td>
-                <td>$300.00</td>
+                <td>{{ $groupedOrder->menu_with_quantity }}</td>
+                <td>{{ $groupedOrder->sellers }}</td>
+                <td>{{ $groupedOrder->menu_prices }}</td>
+                <td>{{ $groupedOrder->quantities }}</td>
+                <td>{{ $groupedOrder-> subtotals }}</td>
             </tr>
             <tr class="total">
-                <td>Total: {{ $groupedOrder->total }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><strong>Total: Rp {{ $groupedOrder->total }}</strong></td>
             </tr>
         </table>
-        @endforeach
-        @endif
     </div>
 </body>
-
 </html>

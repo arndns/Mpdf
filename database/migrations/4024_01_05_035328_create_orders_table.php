@@ -16,6 +16,7 @@ return new class extends Migration
                 $table->foreignId('users_id')->references('id')->on('users');
                 $table->foreignId('menu_id')->nullable(false)->references('id')->on('table_menu');
                 $table->string('menu_name');
+                $table->string('seller')->nullable(false)->references('seller')->on('table_menu');
                 $table->string('menu_pic');
                 $table->integer('quantity');
                 $table->integer('menu_price')->references('menu_price')->on('table_menu');

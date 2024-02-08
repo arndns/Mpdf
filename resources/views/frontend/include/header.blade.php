@@ -41,14 +41,14 @@
                                 <li class="nav-item dropdown">
                                     <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Halo {{ Auth::user()->nama_lengkap }}</a>
                                     <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="{{route('editprofile')}}">Profile</a></li>
                                         <li><a class="dropdown-item" href="{{ route('history_order') }}">History</a></li>
                                         <li><a href="#" class="dropdown-item"
-                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">LogOut</a>
+                                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Log Out</a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST"
                                             style="display: none;">
                                             @csrf
                                         </form></li>
-                                        <li><a class="dropdown-item" href="{{route('editprofile')}}">Profile</a></li>
                                       </ul>
                                 </li>
                                 @endauth

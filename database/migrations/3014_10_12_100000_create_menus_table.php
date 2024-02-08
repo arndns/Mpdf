@@ -16,7 +16,8 @@ return new class extends Migration
                 $table->id();
                 $table->string('menu_pic')->nullable();
                 $table->foreignId('category_id')->references('id')->on('table_category');
-                $table->foreignId('users_id')->nullable(false)->references('id')->on('users'); // Tambahkan nullable(false)
+                $table->foreignId('users_id')->nullable(false)->references('id')->on('users');
+                $table->string('seller')->references('nama_lengkap')->on('users');
                 $table->string('menu_name');
                 $table->integer('menu_price');
                 $table->string('menu_desc');

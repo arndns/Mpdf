@@ -28,6 +28,7 @@ class OrderController extends Controller
                 'users_id' => auth()->id(),
                 'menu_id' => $orderDetail['menu_id'],
                 'menu_name' => $orderDetail['menu_name'],
+                'seller' => $orderDetail['seller'],
                 'menu_pic' => $orderDetail['menu_pic'],
                 'menu_price' => $orderDetail['menu_price'],
                 'quantity' => $orderDetail['quantity'],

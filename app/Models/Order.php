@@ -13,6 +13,7 @@ class Order extends Model
 
     protected $fillable = [
         'users_id',
+        'seller',
         'menu_id',
         'menu_name',
         'menu_pic',
@@ -20,12 +21,12 @@ class Order extends Model
         'menu_price',
         'subtotal',
         'total',
-        'id_pesanan', // Tambahkan kolom id_pesanan
-        'nama_penerima', // Tambahkan kolom nama_penerima
-        'alamat_pengiriman', // Tambahkan kolom alamat_pengiriman
-        'fakultas', // Tambahkan kolom fakultas
-        'tanggal', // Tambahkan kolom tanggal
-        'jam', // Tambahkan kolom jam
+        'id_pesanan', 
+        'nama_penerima', 
+        'alamat_pengiriman', 
+        'fakultas', 
+        'tanggal', 
+        'jam',
     ];
 
     public function user()
@@ -35,6 +36,6 @@ class Order extends Model
 
     public function menu()
     {
-        return $this->belongsTo(Menu::class, 'menu_id');
+        return $this->hasMany(Menu::class, 'menu_id');
     }
 }

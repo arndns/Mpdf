@@ -22,7 +22,8 @@ class Menu extends Model
         'menu_name',
         'menu_price',
         'menu_desc',
-        'users_id'
+        'users_id',
+        'seller'
     ];
 
     public function category()

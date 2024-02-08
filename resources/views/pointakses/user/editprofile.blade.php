@@ -8,7 +8,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="title">Shopping  Cart</h2>
+                    <h2 class="title">Profile</h2>
                     <p>UINSA FOOD</p>
                 </div>
             </div>
@@ -24,7 +24,7 @@
         @endif
         <div class="col-md-8 ">
             <div class="card">
-                <div class="card-header">Update Profile</div>
+                <br>
 
                 <div class="card-body">
                     <form action="{{route('updateprofile')}}" method="POST" enctype="multipart/form-data">
@@ -62,7 +62,7 @@
                         </div>
 
 
-                        <button type="submit" class="btn btn-primary">Update</button>
+                        <button type="submit" class="btn btn-success">Update</button>
                         <a href="{{route('editpassword')}}" class="btn btn-primary">Change Password</a>
                     </form>
                 </div>
