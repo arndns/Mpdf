@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
-use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 use PDF;
 
@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Menu;
 
-use App\Models\Order;
+use Illuminate\Support\Facades\Validator;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -240,5 +240,26 @@ class UserController extends Controller
     public function editpassword()
     {
         return view('pointakses/user/changepassword');
+    }
+
+    public function updatepassword(Request $request){
+        $validate = Validator::make($request->all(),[
+            'current_pw' => 'required',
+            'password'=> 'required|string|min:6|different:current_pw|confirmed',
+        ]);
+
+        if($validate->fails()){
+            return redirect()->back()->withErrors($validate)->withInput();
+        }
+
+        if(!Hash::check($request->current_pw, auth()->user()->password)){
+            return redirect()->back()->with('error', 'password tidak sesuai');
+        }
+
+        auth()->user()->update([
+            'password' => bcrypt($request->password),
+        ]);
+
+        return redirect()->route('editprofile')->with('success','Password berhasil diubah');
     }
 }

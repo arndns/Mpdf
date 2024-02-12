@@ -59,6 +59,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/editprofile',[UserController::class, 'editprofile'])->name('editprofile')->middleware('userAkses:user');
     Route::put('/updateprofile',[UserController::class, 'updateprofile'])->name('updateprofile')->middleware('userAkses:user');
     Route::get('/editpassword',[UserController::class, 'editpassword'])->name('editpassword')->middleware('userAkses:user');
+    Route::post('/update-password-user',[UserController::class, 'updatepassword'])->name('update-password-user')->middleware('userAkses:user');
 
     ////////// User Cart Controller //////////
     Route::get('/shopping-cart', [UserController::class, 'menuOrder'])->name('shopping.order')->middleware('userAkses:user');

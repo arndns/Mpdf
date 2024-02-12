@@ -15,6 +15,13 @@
         </div>
     </div>
 </section>
+        @if(session('success'))
+            <div style="color: green;">{{ session('success') }}</div>
+        @endif
+
+        @if(session('error'))
+            <div style="color: red;">{{ session('error') }}</div>
+        @endif
 
             <div class="container">
                 <div class="row justify-content-center">
@@ -23,27 +30,37 @@
                             <div class="card-header">Update Password</div>
 
                             <div class="card-body">
-                                <form action="#" method="POST" enctype="multipart/form-data">
+                                <form action="{{route('update-password-user')}}" method="POST" enctype="multipart/form-data">
                                     @csrf   
 
                                     <div class="form-group">
-                                        <label for="password_lama">Password Lama</label>
-                                        <input type="password" class="form-control"  name="password_lama" required>
-                                     @error('password_lama')
-                                        <span class="text-danger">{{ $message }}</span>
-                                      @enderror
+                                        <label for="current_pw">Password Lama</label>
+                                        <input type="password" class="form-control"  name="current_pw" required>
+                                        
+                                        @error('current_pw')
+                                         <div style="color: red;">{{ $message }}</div>
+                                         @enderror
+
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="password-baru">Password Baru</label>
-                                        <input type="password" class="form-control"  name="password-baru" required>
+                                        <label for="password">Password Baru</label>
+                                        <input type="password" class="form-control"  name="password" required>
+                                        
+                                        @error('password')
+                                         <div style="color: red;">{{ $message }}</div>
+                                         @enderror
+
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="confirm_password">Konfirmasi Password</label>
-                                        <input type="password" class="form-control"  name="confirm_password" required>
-                                    </div>
+                                        <label for="password_confirmation">Password Lama</label>
+                                        <input type="password" class="form-control"  name="password_confirmation" required>
 
+                                        @error('password_confirmation')
+                                         <div style="color: red;">{{ $message }}</div>
+                                         @enderror
+                                    </div>
 
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </form>
