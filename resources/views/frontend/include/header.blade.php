@@ -32,7 +32,9 @@
                                 <li><a href="{{ route('about_user') }}">Tentang Kami</a></li>
                                 <li><a href="{{ route('contact_user') }}">Kontak</a></li>
                                 <li>
-                                    <a href="{{ route('shopping.order') }}"><i class="icon-shopping-cart"></i>Cart<span class="badge text-bg-danger">{{ count((array) session('order')) }}</span>
+                                    <a href="{{ route('shopping.order') }}">
+                                        <i class="icon-shopping-cart"></i>Cart
+                                        <span class="badge text-bg-danger">{{ count((array) session("order_" . auth()->id())) }}</span>
                                     </a>
                                 </li>
                                 <li>

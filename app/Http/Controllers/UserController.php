@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Models\User;
 
-use Barryvdh\DomPDF\Facade\Pdf;
+use PDF;
 
 use Illuminate\Support\Facades\DB;
 
