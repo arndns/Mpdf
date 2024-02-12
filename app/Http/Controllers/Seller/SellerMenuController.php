@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Contracts\View\View;
 use App\Models\Menu;
+use App\Models\User;
 use App\Models\Category;
 
 class SellerMenuController extends Controller
@@ -34,9 +35,12 @@ class SellerMenuController extends Controller
             'menu_pic' => 'required|image|mimes:jpeg,jpg,png'
         ]);
 
+        $user = auth()->user();
+
         $menu = new Menu();
         $menu->menu_name = $request->input('menu_name');
         $menu->menu_price = $request->input('menu_price');
+        $menu->seller = $user->nama_lengkap;
         $menu->category_id = $request->input('category');
         $menu->menu_desc = $request->input('menu_desc');
         $menu->users_id = auth()->id();
