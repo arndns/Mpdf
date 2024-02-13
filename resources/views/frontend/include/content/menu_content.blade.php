@@ -30,6 +30,7 @@
 
             <div class="menu_info">
                 <h2>{{ $menu->menu_name }}</h2>
+                <p>{{ $menu->seller }}</p>
                 <p>{{ $menu->menu_desc }}</p>
                 <h3>Rp. {{ $menu->menu_price }}</h3>
                 <div class="menu_icon">

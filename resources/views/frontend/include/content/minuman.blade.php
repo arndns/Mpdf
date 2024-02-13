@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
-                <h2 class="heading">Our &nbsp; Kitchen &nbsp; Staff</h2>
+                <h2 class="heading">Menu &nbsp; Tersedia &nbsp;</h2>
                 <hr class="heading_space">
             </div>
         </div>
@@ -10,12 +10,13 @@
             <div class="col-md-12">
                 <div class="cheffs_wrap_slider">
                     <div id="our-cheffs" class="owl-carousel">
+                        @foreach($menus as $menu)
                         <div class="item">
                             <div class="cheffs_wrap">
                                 <div class="menu_card">
 
                                     <div class="menu_image">
-                                        <img src="{{ asset('frontend/images/gallery8.jpg') }}" alt="Chef Image">
+                                        <img src="{{ url('storage/menu_images/' . basename($menu->menu_pic)) }}" alt="Menu Image">
                                     </div>
 
                                     <div class="small_card">
@@ -23,104 +24,15 @@
                                     </div>
 
                                     <div class="menu_info">
-                                        <h2>Ayam Goreng</h2>
-                                        <small>Makanan</small>
-                                        <p>Enjoy Delicious Food!</p>
-                                        <a href="#" class="menu_btn">Order Now</a>
+                                        <h2>{{$menu->menu_name}}</h2>
+                                        <small>{{$menu->seller}}</small>
+                                        <p>{{ $menu->menu_desc }}</p>
+                                        <a href="#" class="menu_btn">Rp. {{ $menu->menu_price }}</a>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="cheffs_wrap">
-                                <div class="menu_card">
-
-                                    <div class="menu_image">
-                                        <img src="{{ asset('frontend/images/gallery8.jpg') }}" alt="Chef Image">
-                                    </div>
-
-                                    <div class="small_card">
-                                        <i class="icon-basket2"></i>
-                                    </div>
-
-                                    <div class="menu_info">
-                                        <h2>Ayam Goreng</h2>
-                                        <small>Makanan</small>
-                                        <p>Enjoy Delicious Food!</p>
-                                        <a href="#" class="menu_btn">Order Now</a>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="cheffs_wrap">
-                                <div class="menu_card">
-
-                                    <div class="menu_image">
-                                        <img src="{{ asset('frontend/images/gallery8.jpg') }}" alt="Chef Image">
-                                    </div>
-
-                                    <div class="small_card">
-                                        <i class="icon-basket2"></i>
-                                    </div>
-
-                                    <div class="menu_info">
-                                        <h2>Ayam Goreng</h2>
-                                        <small>Makanan</small>
-                                        <p>Enjoy Delicious Food!</p>
-                                        <a href="#" class="menu_btn">Order Now</a>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="cheffs_wrap">
-                                <div class="menu_card">
-
-                                    <div class="menu_image">
-                                        <img src="{{ asset('frontend/images/gallery8.jpg') }}" alt="Chef Image">
-                                    </div>
-
-                                    <div class="small_card">
-                                        <i class="icon-basket2"></i>
-                                    </div>
-
-                                    <div class="menu_info">
-                                        <h2>Ayam Goreng</h2>
-                                        <small>Makanan</small>
-                                        <p>Enjoy Delicious Food!</p>
-                                        <a href="#" class="menu_btn">Order Now</a>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="cheffs_wrap">
-                                <div class="menu_card">
-
-                                    <div class="menu_image">
-                                        <img src="{{ asset('frontend/images/gallery8.jpg') }}" alt="Chef Image">
-                                    </div>
-
-                                    <div class="small_card">
-                                        <i class="icon-basket2"></i>
-                                    </div>
-
-                                    <div class="menu_info">
-                                        <h2>Ayam Goreng</h2>
-                                        <small>Makanan</small>
-                                        <p>Enjoy Delicious Food!</p>
-                                        <a href="#" class="menu_btn">Order Now</a>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
+                        @endforeach
                     </div>
                 </div>
             </div>

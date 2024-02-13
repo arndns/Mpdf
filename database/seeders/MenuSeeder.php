@@ -16,6 +16,7 @@ class MenuSeeder extends Seeder
         Menu::create([
             'menu_pic' => asset('storage/menu_images/bakso-mas-roy.jpg'),
             'menu_name' => 'bakso',
+            'seller' => 'Seller',
             'category_id' => '1',
             'users_id' => '2',
             'menu_price' => 10,
@@ -24,6 +25,7 @@ class MenuSeeder extends Seeder
         Menu::create([
             'menu_pic' => asset('storage/menu_images/cincau.jpg'),
             'menu_name' => 'es cao',
+            'seller' => 'Seller',
             'category_id' => '2',
             'users_id' => '2',
             'menu_price' => 20,
@@ -32,6 +34,7 @@ class MenuSeeder extends Seeder
         Menu::create([
             'menu_pic' => asset('storage/menu_images/teh.jpg'),
             'menu_name' => 'es teh',
+            'seller' => 'Seller2',
             'category_id' => '3',
             'users_id' => '3',
             'menu_price' => 15,

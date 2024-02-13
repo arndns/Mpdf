@@ -22,7 +22,7 @@
         <table id="cart" class="table table-bordered">
             <tr>
                 <th>Menu</th>
-                <th></th>
+                <th>Vendor</th>
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Subtotal</th>
@@ -38,6 +38,7 @@
                                 </div>
                             </div>
                         </td>
+                        <td data-th="Seller">{{ $order_detail['seller'] }}</td>
                         <td class="text-center">
                             <img src="{{ url('storage/menu_images/' . basename($order_detail['menu_pic'])) }}" class="rounded" style="width: 150px">
                         </td>

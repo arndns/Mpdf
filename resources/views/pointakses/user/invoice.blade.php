@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>A simple, clean, and responsive HTML invoice template</title>
+    <title>Invoice UINSAFOOD</title>
 
     <style>
         .invoice-box {
@@ -118,8 +118,9 @@
                                                 </td>
                                                 <td>
                                                     <strong>ID Pesanan: {{ $groupedOrder->id_pesanan }}</strong>
-                                                    <br>Menu: {{ $groupedOrder->menu_names }}
+                                                    <br><strong> Nama penjual: {{ $groupedOrder->sellers }}</strong>
                                                 </td>
+                                                
                                             </tr>
                                         </table>
                                     </td>
@@ -143,7 +144,8 @@
                                 <br>Nama Penerima: {{ $groupedOrder->nama_penerima }}
                                 <br>Alamat Pengiriman: {{ $groupedOrder->alamat_pengiriman }}
                                 <br>Fakultas: {{ $groupedOrder->fakultas }}
-                                <br>Tanggal & Jam: {{ $groupedOrder->tanggal }}, {{ $groupedOrder->jam }}
+                                <br>Tanggal :{{ $groupedOrder->tanggal }} 
+                                <br>Jam : {{ $groupedOrder->jam }}
                             </td>
                         </tr>
                     </table>
@@ -155,14 +157,26 @@
                 <td>Price</td>
             </tr>
 
-            <tr class="item">
-                <td>{{ $groupedOrder->menu_names }}</td>
-                <td>{{ $groupedOrder->quantity }}</td>
-                <td>$300.00</td>
-            </tr>
-            <tr class="total">
-                <td>Total: {{ $groupedOrder->total }}</td>
-            </tr>
+            @foreach($groupedOrders as $groupedOrder)
+            @php
+                $menus = explode(',', $groupedOrder->menu_names);
+                $quantities = explode(',', $groupedOrder->quantities); // Menggunakan string quantities yang baru
+                $subtotals = explode(',', $groupedOrder->subtotals);
+                $count = count($menus);
+            @endphp
+        
+            @for ($i = 0; $i < $count; $i++)
+                <tr class="item">
+                    <td>{{ isset($menus[$i]) ? $menus[$i] : '' }}</td>
+                    <td>{{ isset($quantities[$i]) ? number_format($quantities[$i], 0, ',', '.') : '' }}</td>
+                    <td>Rp.{{ isset($subtotals[$i]) ? number_format($subtotals[$i], 0, ',', '.') : '' }}</td>
+                </tr>
+            @endfor
+        @endforeach
+        
+        <tr class="total">
+            <td><strong>Total Rp.{{ number_format($groupedOrder->total, 0, ',', '.') }}</strong></td>
+        </tr>        
         </table>
         @endforeach
         @endif

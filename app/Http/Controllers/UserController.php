@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
+use App\Models\User;
+
+use PDF;
 
 use Illuminate\Support\Facades\DB;
+
+use Illuminate\Http\Request;
 
 use App\Models\Menu;
 
@@ -81,6 +85,7 @@ class UserController extends Controller
             $order[$id] = [
                 "menu_id" => $menu->id,
                 "menu_name" => $menu->menu_name,
+                "seller" => $menu->seller,
                 "menu_pic" => $menu->menu_pic,
                 "quantity" => 1,
                 "menu_price" => $menu->menu_price,
@@ -159,7 +164,8 @@ class UserController extends Controller
         $userId = Auth::id();
     
         $groupedOrders = DB::table('orders')
-            ->select('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman', 'fakultas', 'tanggal', 'jam', DB::raw('GROUP_CONCAT(menu_name SEPARATOR ", ") as menu_names'))
+            ->select('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman', 'fakultas', 'tanggal', 'jam', 
+                    DB::raw('GROUP_CONCAT(CONCAT(menu_name, " (", quantity, ")") SEPARATOR ", ") as menu_with_quantity'))
             ->where('users_id', $userId)
             ->groupBy('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman', 'fakultas', 'tanggal', 'jam')
             ->get();
@@ -173,23 +179,47 @@ class UserController extends Controller
         
         // Retrieve the grouped orders
         $groupedOrders = DB::table('orders')
-            ->select('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman','quantity', 'fakultas', 'tanggal', 'jam', DB::raw('GROUP_CONCAT(menu_name SEPARATOR ", ") as menu_names'))
+            ->join('users', 'orders.users_id', '=', 'users.id')
+            ->select('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman', 'fakultas', 'tanggal', 'jam', 'users.nama_lengkap', DB::raw('GROUP_CONCAT(menu_name) as menu_names'), DB::raw('GROUP_CONCAT(seller) as sellers'), DB::raw('GROUP_CONCAT(subtotal) as subtotals'), DB::raw('GROUP_CONCAT(quantity SEPARATOR ", ") as quantities'))
             ->where('users_id', $userId)
-            ->where('id_pesanan', $id_pesanan) // Filter berdasarkan ID pesanan yang diberikan
-            ->groupBy('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman','quantity', 'fakultas', 'tanggal', 'jam')
+            ->where('id_pesanan', $id_pesanan)
+            ->groupBy('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman', 'fakultas', 'tanggal', 'jam', 'users.nama_lengkap')
             ->get();
         
         // Return the view with the data
-        return view('pointakses.user.invoice', compact('groupedOrders'));
+        return view('pointakses.user.invoice', compact('userId', 'groupedOrders'));
     }
     
     
+
+    // public function generateinvoice($id_pesanan)
+    // {
+    // $userId = Auth::id();
     
+    // // Retrieve the grouped orders
+    // $groupedOrders = DB::table('orders')
+    //     ->join('users', 'orders.users_id', '=', 'users.id')
+    //     ->select('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman', 'fakultas', 'tanggal', 'jam',  'users.nama_lengkap',
+    //             DB::raw('GROUP_CONCAT(CONCAT(menu_name, " (", quantity, ")") SEPARATOR ", ") as menu_with_quantity'),
+    //             DB::raw('GROUP_CONCAT(seller SEPARATOR ", ") as sellers'),
+    //             DB::raw('GROUP_CONCAT(menu_price SEPARATOR ", ") as menu_prices'),
+    //             DB::raw('GROUP_CONCAT(quantity SEPARATOR ", ") as quantities'),
+    //             DB::raw('GROUP_CONCAT(subtotal SEPARATOR " + ") as subtotals'))
+    //     ->where('id_pesanan', $id_pesanan)
+    //     ->groupBy('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman', 'fakultas', 'tanggal', 'jam', 'users.nama_lengkap')
+    //     ->get();
     
+    // // Load the view for invoice
+    // $pdf = Pdf::loadView('pointakses.user.invoice', compact('userId', 'groupedOrders'));
+
+    // // Download the PDF file with the specified name
+    // return $pdf->download('invoice.pdf');
+    // }
+
+
     public function editprofile()
     {
         return view('pointakses/user/editprofile');
-
     }
 
     public function updateprofile(Request $request)
@@ -205,7 +235,8 @@ class UserController extends Controller
         return back()->with('message','Update Profile Berhasil');
     }
 
-    public function editpassword(){
+    public function editpassword()
+    {
         return view('pointakses/user/changepassword');
     }
 }
