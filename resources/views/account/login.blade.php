@@ -95,8 +95,10 @@
                             <a href="{{ route('registrasi') }}" style="float: left;">Register Now!</a>
                             <a href="/" style="float: left;">Kembali</a>
                         </p>
-
                     </div>
+                </div>
+                <div class="row">
+                    <a href="">Forgot Password</a>
                 </div>
         </div>
         </form>

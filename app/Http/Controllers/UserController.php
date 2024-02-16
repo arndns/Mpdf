@@ -173,7 +173,26 @@ class UserController extends Controller
         return view('pointakses/user/history_order', ['groupedOrders' => $groupedOrders]);
     }
 
-    public function invoice($id_pesanan)
+    // public function invoice($id_pesanan)
+    // {
+    //     $userId = Auth::id();
+        
+    //     // Retrieve the grouped orders
+    //     $groupedOrders = DB::table('orders')
+    //         ->join('users', 'orders.users_id', '=', 'users.id')
+    //         ->select('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman', 'fakultas', 'tanggal', 'jam', 'users.nama_lengkap', DB::raw('GROUP_CONCAT(menu_name) as menu_names'), DB::raw('GROUP_CONCAT(seller) as sellers'), DB::raw('GROUP_CONCAT(subtotal) as subtotals'), DB::raw('GROUP_CONCAT(quantity SEPARATOR ", ") as quantities'))
+    //         ->where('users_id', $userId)
+    //         ->where('id_pesanan', $id_pesanan)
+    //         ->groupBy('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman', 'fakultas', 'tanggal', 'jam', 'users.nama_lengkap')
+    //         ->get();
+        
+    //     // Return the view with the data
+    //     return view('pointakses.user.invoice', compact('userId', 'groupedOrders'));
+    // }
+    
+    
+
+    public function generateinvoice($id_pesanan)
     {
         $userId = Auth::id();
         
@@ -186,35 +205,11 @@ class UserController extends Controller
             ->groupBy('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman', 'fakultas', 'tanggal', 'jam', 'users.nama_lengkap')
             ->get();
         
-        // Return the view with the data
-        return view('pointakses.user.invoice', compact('userId', 'groupedOrders'));
+        // Load the view for invoice
+        $pdf = PDF::loadView('pointakses.user.invoice', compact('userId', 'groupedOrders'));
+
+        return $pdf->stream('Nota'.$id_pesanan.'pdf');
     }
-    
-    
-
-    // public function generateinvoice($id_pesanan)
-    // {
-    // $userId = Auth::id();
-    
-    // // Retrieve the grouped orders
-    // $groupedOrders = DB::table('orders')
-    //     ->join('users', 'orders.users_id', '=', 'users.id')
-    //     ->select('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman', 'fakultas', 'tanggal', 'jam',  'users.nama_lengkap',
-    //             DB::raw('GROUP_CONCAT(CONCAT(menu_name, " (", quantity, ")") SEPARATOR ", ") as menu_with_quantity'),
-    //             DB::raw('GROUP_CONCAT(seller SEPARATOR ", ") as sellers'),
-    //             DB::raw('GROUP_CONCAT(menu_price SEPARATOR ", ") as menu_prices'),
-    //             DB::raw('GROUP_CONCAT(quantity SEPARATOR ", ") as quantities'),
-    //             DB::raw('GROUP_CONCAT(subtotal SEPARATOR " + ") as subtotals'))
-    //     ->where('id_pesanan', $id_pesanan)
-    //     ->groupBy('id_pesanan', 'total', 'nama_penerima', 'alamat_pengiriman', 'fakultas', 'tanggal', 'jam', 'users.nama_lengkap')
-    //     ->get();
-    
-    // // Load the view for invoice
-    // $pdf = Pdf::loadView('pointakses.user.invoice', compact('userId', 'groupedOrders'));
-
-    // // Download the PDF file with the specified name
-    // return $pdf->download('invoice.pdf');
-    // }
 
 
     public function editprofile()

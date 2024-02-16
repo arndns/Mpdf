@@ -38,10 +38,10 @@
                 </td>
                 <td>
                     @isset($groupedOrder->id_pesanan)
-                    <a href="{{ route('user_invoice', ['id_pesanan' => $groupedOrder->id_pesanan]) }}"
-                        class="btn btn-info">Lihat Invoice</a>
+                    {{-- <a href="{{ route('user_invoice', ['id_pesanan' => $groupedOrder->id_pesanan]) }}"
+                        class="btn btn-info">Lihat Invoice</a> --}}
                     <a href="{{ route('download', ['id_pesanan' => $groupedOrder->id_pesanan]) }}"
-                        class="btn btn-success">Unduh Invoice</a>
+                        class="btn btn-success">LIHAT INVOICE</a>
                     @endisset
                 </td>
             </tr>
